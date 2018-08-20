@@ -15,7 +15,12 @@ open class MessageViewController: UIViewController, MessageAutocompleteControlle
         return MessageAutocompleteController(textView: self.messageView.textView)
     }()
     public var cacheKey: String?
-
+    
+    /*
+     Set to true if you're transforming the scrollView upside down
+    */
+    public var isInverted = false
+    
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         commonInit()
@@ -179,7 +184,9 @@ open class MessageViewController: UIViewController, MessageAutocompleteControlle
             let contentOffset = scrollView.contentOffset
 
             self.layout()
-
+            
+            guard !self.isInverted else { return }
+            
             let scrollViewHeight = scrollView.bounds.height
             let contentHeight = scrollView.contentSize.height
             let inset = scrollView.util_adjustedContentInset
