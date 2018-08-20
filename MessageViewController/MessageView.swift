@@ -11,7 +11,7 @@ import UIKit
 public final class MessageView: UIView, MessageTextViewListener {
 
     public let textView = MessageTextView()
-
+    
     internal weak var delegate: MessageViewDelegate?
     internal let leftButton = ExpandedHitTestButton()
     internal let rightButton = ExpandedHitTestButton()
@@ -128,6 +128,13 @@ public final class MessageView: UIView, MessageTextViewListener {
         get { return textView.contentInset }
     }
 
+    public var textViewOffset: UIEdgeInsets = .zero {
+        didSet {
+            setNeedsLayout()
+            delegate?.wantsLayout(messageView: self)
+        }
+    }
+    
     /// - Parameter accessibilityLabel: A custom `accessibilityLabel` to set on the button.
     /// If none is supplied, it will default to the icon's `accessibilityLabel`.
     public func setButton(icon: UIImage?, for state: UIControlState, position: ButtonPosition, accessibilityLabel: String? = nil) {
@@ -277,7 +284,7 @@ public final class MessageView: UIView, MessageTextViewListener {
         let leftButtonSize = leftButton.bounds.size
         let rightButtonSize = rightButton.bounds.size
 
-        let textViewY = safeBounds.minY
+        let textViewY = safeBounds.minY + textViewOffset.top
         let textViewHeight = self.textViewHeight
         let textViewMaxY = textViewY + textViewHeight
 
@@ -290,12 +297,12 @@ public final class MessageView: UIView, MessageTextViewListener {
             descender = 0
             pointSize = 0
         }
-        let buttonYStarter = textViewMaxY - textViewInset.bottom - (pointSize - descender)/2
+        let buttonYStarter = (textViewMaxY - textViewInset.bottom - (pointSize - descender)/2) - textViewOffset.bottom
 
         // adjust by bottom offset so content is flush w/ text view
         let leftButtonFrame = CGRect(
             x: safeBounds.minX + leftButtonInset,
-            y: buttonYStarter - leftButtonSize.height/2 + leftButton.bottomHeightOffset,
+            y: buttonYStarter - leftButtonSize.height/2 - leftButton.bottomHeightOffset,
             width: leftButtonSize.width,
             height: leftButtonSize.height
         )
@@ -303,17 +310,17 @@ public final class MessageView: UIView, MessageTextViewListener {
 
         let leftButtonMaxX = (showLeftButton ? leftButtonFrame.maxX : 0)
         let textViewFrame = CGRect(
-            x: (showLeftButton ? leftButtonMaxX + leftButtonInset : 0),
+            x: (showLeftButton ? leftButtonMaxX + leftButtonInset : 0) + textViewOffset.left,
             y: textViewY,
-            width: safeBounds.width - leftButtonMaxX - rightButtonSize.width - rightButtonInset,
-            height: textViewHeight
+            width: safeBounds.width - leftButtonMaxX - rightButtonSize.width - rightButtonInset - textViewOffset.right - textViewOffset.left,
+            height: textViewHeight - textViewOffset.bottom - textViewOffset.top
         )
         textView.frame = textViewFrame
 
         // adjust by bottom offset so content is flush w/ text view
         let rightButtonFrame = CGRect(
-            x: textViewFrame.maxX,
-            y: buttonYStarter - rightButtonSize.height/2 + rightButton.bottomHeightOffset,
+            x: textViewFrame.maxX + textViewOffset.right,
+            y: buttonYStarter - rightButtonSize.height/2 - rightButton.bottomHeightOffset,
             width: rightButtonSize.width,
             height: rightButtonSize.height
         )
@@ -358,7 +365,7 @@ public final class MessageView: UIView, MessageTextViewListener {
     }
     
     internal var textViewHeight: CGFloat {
-        return ceil(min(calculatedMaxHeight, textView.contentSize.height))
+        return ceil(min(calculatedMaxHeight, textView.contentSize.height)) + textViewOffset.bottom + textViewOffset.top
     }
     
     internal func updateEmptyTextStates() {

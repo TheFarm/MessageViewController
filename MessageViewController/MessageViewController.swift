@@ -16,10 +16,9 @@ open class MessageViewController: UIViewController, MessageAutocompleteControlle
     }()
     public var cacheKey: String?
     
-    /*
-     Set to true if you're transforming the scrollView upside down
-    */
+    // Set to true if you're transforming the scrollView upside down
     public var isInverted = false
+    public var messageViewInset: UIEdgeInsets = .zero
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -121,9 +120,9 @@ open class MessageViewController: UIViewController, MessageAutocompleteControlle
         let hiddenHeight = isMessageViewHidden ? messageViewHeight : 0
 
         let messageViewFrame = CGRect(
-            x: bounds.minX,
-            y: bounds.minY + bounds.height - messageViewHeight - keyboardHeight + hiddenHeight,
-            width: bounds.width,
+            x: bounds.minX + messageViewInset.left,
+            y: bounds.minY + bounds.height - messageViewHeight - keyboardHeight + hiddenHeight - messageViewInset.top - messageViewInset.bottom,
+            width: bounds.width - messageViewInset.left - messageViewInset.right,
             height: messageViewHeight
         )
         messageView.frame = messageViewFrame
@@ -135,7 +134,7 @@ open class MessageViewController: UIViewController, MessageAutocompleteControlle
             x: bounds.minX,
             y: bounds.minY,
             width: bounds.width,
-            height: messageViewFrame.minY
+            height: messageViewFrame.minY - messageViewInset.top
         )
 
         messageAutocompleteController.layout(in: view, bottomY: messageViewFrame.minY)
