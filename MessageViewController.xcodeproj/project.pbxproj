@@ -17,8 +17,8 @@
 		290482271FED90340053978C /* UITextView+Prefixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2904821E1FED90340053978C /* UITextView+Prefixes.swift */; };
 		29792B141FFAE7FC007A0C57 /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29792B121FFAE7FC007A0C57 /* MessageTextView.swift */; };
 		29792B151FFAE7FC007A0C57 /* MessageAutocompleteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29792B131FFAE7FC007A0C57 /* MessageAutocompleteController.swift */; };
+		29C8A1FB2187223300AEA4E0 /* MessageTextViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C8A1FA2187223300AEA4E0 /* MessageTextViewTests.swift */; };
 		29C8F9A9208BDAC60075931C /* ExpandedHitTestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C8F9A8208BDAC60075931C /* ExpandedHitTestButton.swift */; };
-		29CC293B1FF4266D006B6DE7 /* MessageViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CC293A1FF4266D006B6DE7 /* MessageViewControllerTests.swift */; };
 		29CC293D1FF4266D006B6DE7 /* MessageViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2904820B1FED90070053978C /* MessageViewController.framework */; };
 		29CC29441FF4267F006B6DE7 /* String+WordAtRangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CC29431FF4267F006B6DE7 /* String+WordAtRangeTests.swift */; };
 		29CC29471FF42687006B6DE7 /* String+WordAtRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CC29451FF42687006B6DE7 /* String+WordAtRange.swift */; };
@@ -51,9 +51,9 @@
 		2904821E1FED90340053978C /* UITextView+Prefixes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Prefixes.swift"; sourceTree = "<group>"; };
 		29792B121FFAE7FC007A0C57 /* MessageTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
 		29792B131FFAE7FC007A0C57 /* MessageAutocompleteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageAutocompleteController.swift; sourceTree = "<group>"; };
+		29C8A1FA2187223300AEA4E0 /* MessageTextViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextViewTests.swift; sourceTree = "<group>"; };
 		29C8F9A8208BDAC60075931C /* ExpandedHitTestButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedHitTestButton.swift; sourceTree = "<group>"; };
 		29CC29381FF4266D006B6DE7 /* MessageViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessageViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		29CC293A1FF4266D006B6DE7 /* MessageViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewControllerTests.swift; sourceTree = "<group>"; };
 		29CC293C1FF4266D006B6DE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29CC29431FF4267F006B6DE7 /* String+WordAtRangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+WordAtRangeTests.swift"; sourceTree = "<group>"; };
 		29CC29451FF42687006B6DE7 /* String+WordAtRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+WordAtRange.swift"; sourceTree = "<group>"; };
@@ -102,20 +102,20 @@
 		2904820D1FED90070053978C /* MessageViewController */ = {
 			isa = PBXGroup;
 			children = (
+				29C8F9A8208BDAC60075931C /* ExpandedHitTestButton.swift */,
 				2904820F1FED90070053978C /* Info.plist */,
 				29792B131FFAE7FC007A0C57 /* MessageAutocompleteController.swift */,
 				29792B121FFAE7FC007A0C57 /* MessageTextView.swift */,
-				29C8F9A8208BDAC60075931C /* ExpandedHitTestButton.swift */,
 				290482181FED90340053978C /* MessageView.swift */,
 				2904820E1FED90070053978C /* MessageViewController.h */,
 				290482171FED90340053978C /* MessageViewController.swift */,
 				290482191FED90340053978C /* MessageViewController+MessageViewDelegate.swift */,
 				2904821C1FED90340053978C /* MessageViewDelegate.swift */,
+				38199E102022792600ADFE76 /* NSAttributedString+ReplaceRange.swift */,
 				29CC29451FF42687006B6DE7 /* String+WordAtRange.swift */,
 				2904821D1FED90340053978C /* UIButton+BottomHeightOffset.swift */,
 				290482161FED90340053978C /* UIScrollView+StopScrolling.swift */,
 				2904821E1FED90340053978C /* UITextView+Prefixes.swift */,
-				38199E102022792600ADFE76 /* NSAttributedString+ReplaceRange.swift */,
 				29CC29461FF42687006B6DE7 /* UIView+iOS11.swift */,
 			);
 			path = MessageViewController;
@@ -125,9 +125,9 @@
 			isa = PBXGroup;
 			children = (
 				29CC293C1FF4266D006B6DE7 /* Info.plist */,
-				29CC293A1FF4266D006B6DE7 /* MessageViewControllerTests.swift */,
-				29CC29431FF4267F006B6DE7 /* String+WordAtRangeTests.swift */,
+				29C8A1FA2187223300AEA4E0 /* MessageTextViewTests.swift */,
 				38D26FB02023D01900B2B7B5 /* NSAttributedString+HighlightingTests.swift */,
+				29CC29431FF4267F006B6DE7 /* String+WordAtRangeTests.swift */,
 			);
 			path = MessageViewControllerTests;
 			sourceTree = "<group>";
@@ -189,17 +189,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Ryan Nystrom";
 				TargetAttributes = {
 					2904820A1FED90070053978C = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 					};
 					29CC29371FF4266D006B6DE7 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -264,8 +264,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29CC293B1FF4266D006B6DE7 /* MessageViewControllerTests.swift in Sources */,
 				38D26FB12023D01900B2B7B5 /* NSAttributedString+HighlightingTests.swift in Sources */,
+				29C8A1FB2187223300AEA4E0 /* MessageTextViewTests.swift in Sources */,
 				29CC29441FF4267F006B6DE7 /* String+WordAtRangeTests.swift in Sources */,
 				29CC29491FF81F1F006B6DE7 /* String+WordAtRange.swift in Sources */,
 			);
@@ -450,7 +450,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 523C4DWBTH;
+				DEVELOPMENT_TEAM = 52G72HNQX8;
 				INFOPLIST_FILE = MessageViewControllerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoisryannystrom.MessageViewControllerTests;
@@ -464,7 +464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 523C4DWBTH;
+				DEVELOPMENT_TEAM = 52G72HNQX8;
 				INFOPLIST_FILE = MessageViewControllerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoisryannystrom.MessageViewControllerTests;

@@ -39,29 +39,6 @@ public final class MessageAutocompleteController: MessageTextViewListener {
     /// A key used for referencing which substrings were autocompletes
     private let NSAttributedAutocompleteKey = NSAttributedString.Key.init("com.messageviewcontroller.autocompletekey")
 
-    private var defaultTextAttributes: [NSAttributedString.Key: Any] {
-        return [
-            .font: textView.defaultFont as Any,
-            .foregroundColor: textView.defaultTextColor as Any,
-        ]
-    }
-    
-    /// A reference to `defaultTextAttributes` that adds the NSAttributedAutocompleteKey
-    private var typingTextAttributes: [NSAttributedString.Key: Any] {
-        var attributes = defaultTextAttributes
-        attributes[.paragraphStyle] = paragraphStyle
-        attributes[NSAttributedAutocompleteKey] = false
-        return attributes
-    }
-    
-    /// The NSAttributedStringKey.paragraphStyle value applied to attributed strings
-    private let paragraphStyle: NSMutableParagraphStyle = {
-        let style = NSMutableParagraphStyle()
-        style.paragraphSpacingBefore = 2
-        style.lineHeightMultiple = 1
-        return style
-    }()
-
     internal var registeredPrefixes = Set<String>()
     internal let border = CALayer()
     internal var keyboardHeight: CGFloat = 0
@@ -121,8 +98,6 @@ public final class MessageAutocompleteController: MessageTextViewListener {
             location: selectedLocation,
             length: 0
         )
-
-        preserveTypingAttributes(for: textView)
     }
 
     internal func cancel() {
@@ -176,16 +151,16 @@ public final class MessageAutocompleteController: MessageTextViewListener {
     }
 
     public func registerAutocomplete(prefix: String, attributes: [NSAttributedString.Key: Any]) {
+        registeredPrefixes.insert(prefix)
         autocompleteTextAttributes[prefix] = attributes
-        autocompleteTextAttributes[prefix]?[.paragraphStyle] = paragraphStyle
     }
 
     // MARK: Private API
     
     private func insertAutocomplete(_ autocomplete: String, at selection: Selection, for range: NSRange, keepPrefix: Bool) {
-        let defaultTypingTextAttributes = typingTextAttributes
+        let defaultTypingTextAttributes = textView.typingAttributes
 
-        var attrs = defaultTextAttributes
+        var attrs = defaultTypingTextAttributes
         attrs[NSAttributedAutocompleteKey] = true
 
         if let autoAttrs = autocompleteTextAttributes[selection.prefix] {
@@ -229,13 +204,6 @@ public final class MessageAutocompleteController: MessageTextViewListener {
             else { return }
         keyboardHeight = keyboardFrame.height
     }
-    
-    /// Ensures new text typed is not styled
-    ///
-    /// - Parameter textView: The `UITextView` to apply `typingTextAttributes` to
-    internal func preserveTypingAttributes(for textView: UITextView) {
-        textView.typingAttributes = typingTextAttributes
-    }
 
     // MARK: MessageTextViewListener
 
@@ -243,9 +211,7 @@ public final class MessageAutocompleteController: MessageTextViewListener {
         check()
     }
 
-    public func didChange(textView: MessageTextView) {
-        preserveTypingAttributes(for: textView)
-    }
+    public func didChange(textView: MessageTextView) {}
     
     public func willChangeRange(textView: MessageTextView, to range: NSRange) {
         
@@ -267,14 +233,13 @@ public final class MessageAutocompleteController: MessageTextViewListener {
                     // Only delete the first found range
                     defer { stop.pointee = true }
 
-                    let emptyString = NSAttributedString(string: "", attributes: typingTextAttributes)
+                    let emptyString = NSAttributedString(string: "", attributes: textView.typingAttributes)
                     textView.attributedText = textView.attributedText.replacingCharacters(in: range, with: emptyString)
                     textView.selectedRange = NSRange(location: range.location, length: 0)
-                    self.textView.textViewDidChange(textView)
-                    self.preserveTypingAttributes(for: textView)
                 })
             }
         }
     }
-
 }
+
+
